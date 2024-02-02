@@ -1,5 +1,6 @@
 package me.dio.credit.application.system.exception
 
+import org.springframework.dao.DataAccessException
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
@@ -28,6 +29,19 @@ class RestExceptionHandler {
                 exception = ex.javaClass.toString(),
                 details = errors
             ), HttpStatus.BAD_REQUEST
+        )
+    }
+
+    @ExceptionHandler(DataAccessException::class)
+    fun handlerValidException(ex: DataAccessException): ResponseEntity<ExceptionDetails> {
+        return ResponseEntity(
+            ExceptionDetails(
+                title = "Conflict! Consult the documentation.",
+                timestamp = LocalDateTime.now(),
+                status = HttpStatus.CONFLICT.value(),
+                exception = ex.javaClass.toString(),
+                details = mutableMapOf(ex.cause.toString() to ex.message)
+            ), HttpStatus.CONFLICT
         )
     }
 }
