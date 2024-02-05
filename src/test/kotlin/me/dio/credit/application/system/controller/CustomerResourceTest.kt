@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.math.BigDecimal
+import java.util.Random
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -105,6 +106,30 @@ class CustomerResourceTest {
         //then
         mockMvc.perform(MockMvcRequestBuilders.get("$URL/$invalidId").accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isBadRequest).andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `should delete customer by id`() {
+        //given
+        val customer: Customer = customerRepository.save(buildCustomerDto().toEntity())
+        //when
+        //then
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete("$URL/${customer.id}")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isNoContent).andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun `should not delete customer by id and return 400 status`() {
+        //given
+        val invalidId: Long = Random().nextLong()
+        //when
+        //then
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete("$URL/${invalidId}")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isBadRequest).andDo(MockMvcResultHandlers.print())
     }
 
     private fun buildCustomerDto(
