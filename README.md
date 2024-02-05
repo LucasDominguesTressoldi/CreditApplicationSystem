@@ -22,7 +22,7 @@ In Terminal/Console:
 2. Go to the project root folder: cd
 3. Run the command: ./gradlew bootrun
 
-**In order to facilitate the demonstration of the application, I recommend installing only IntelliJ IDEA and running the project through the IDE**
+**In order to facilitate the demonstration of the application, I recommend installing only IntelliJ IDEA and running the project through the IDE.**
 
 You can find all the json commands used in postman in the file provided above with the name:  
 ```credit-application-system.postman_collection.json```
