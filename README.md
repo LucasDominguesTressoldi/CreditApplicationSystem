@@ -1,6 +1,6 @@
 # Credit Application System 💳
 
-🎯```The objective of this project is to develop a Rest API that will perform a CRUD on a database simulating the points:```
+🎯```The objective of this project is to develop a Rest API that will perform a CRUD on a database simulating the points below:```
 
 1. Customer registration
 2. Updating customer data
